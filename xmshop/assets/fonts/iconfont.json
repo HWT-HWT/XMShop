@@ -1,0 +1,23 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "5387705",
+      "name": "服务",
+      "font_class": "fuwu",
+      "unicode": "eb36",
+      "unicode_decimal": 60214
+    },
+    {
+      "icon_id": "31766307",
+      "name": "小米-copy",
+      "font_class": "XiaoMi",
+      "unicode": "e609",
+      "unicode_decimal": 58889
+    }
+  ]
+}
