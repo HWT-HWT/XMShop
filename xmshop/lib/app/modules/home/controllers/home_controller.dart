@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
 import '../../../models/focus_model.dart';
+import '../../../models/category_model.dart';
 
 class HomeController extends GetxController {
   // 浮动导航开关
@@ -14,15 +15,21 @@ class HomeController extends GetxController {
   // 轮播图数据
   RxList swiperList = [].obs;
 
+  // 分类数据
+  RxList CategoryList = [].obs;
+
   @override
   void onInit() {
     super.onInit();
+    // 获取分类数据
+    getCategoryData();
     // 获取轮播图数据
     getFocuData();
     // 监听滚动
     scrollControllerListener();
   }
 
+  // 监听滚动
   void scrollControllerListener() {
     scrollController.addListener(() {
       if (scrollController.position.pixels > 10 &&
@@ -43,13 +50,23 @@ class HomeController extends GetxController {
     });
   }
 
+  // 获取轮播图数据
   void getFocuData() async {
     var response = await Dio().get('https://miapp.itying.com/api/focus');
 
     var focus = FocusModel.fromJson(response.data);
-    print(focus.result?[0].title);
+
     swiperList.value = focus.result!;
     // print(swiperList);
+    update();
+  }
+
+  // 获取分类数据
+  void getCategoryData() async {
+    var response = await Dio().get('https://miapp.itying.com/api/bestCate');
+    var category = CategoryModel.fromJson(response.data);
+
+    CategoryList.value = category.result!;
     update();
   }
 
