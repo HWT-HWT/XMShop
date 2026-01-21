@@ -14,6 +14,7 @@ class TabsView extends GetView<TabsController> {
         // appBar: AppBar(title: const Text('TabsView'), centerTitle: true),
         body: PageView(
           controller: controller.pageController,
+          physics: NeverScrollableScrollPhysics(),
           children: controller.pages,
           onPageChanged: (index) {
             controller.setCurrentIndex(index);
