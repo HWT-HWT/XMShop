@@ -99,7 +99,7 @@ class HomeController extends GetxController {
   // 获取热销臻选商品数据
   void getSellingListData() async {
     var response = await Dio().get(
-      'http://miapp.itying.com/api/plist?is_hot=1',
+      'https://miapp.itying.com/api/plist?is_hot=1',
     );
     var pList = PlistModel.fromJson(response.data);
 
