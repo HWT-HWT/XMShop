@@ -1,12 +1,110 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-
+import 'package:xmshop/app/services/httpsClient.dart';
 import '../controllers/category_controller.dart';
 import '../../../services/screebAdapter.dart';
 
 class CategoryView extends GetView<CategoryController> {
   const CategoryView({super.key});
+
+  Widget _leftCategory() {
+    return Container(
+      color: Colors.white,
+      width: ScreenAdapter.width(280),
+      height: double.infinity,
+      child: Obx(
+        () => ListView.builder(
+          itemCount: controller.leftCategoryList.length,
+          itemBuilder: ((context, index) {
+            return SizedBox(
+              width: double.infinity,
+              height: ScreenAdapter.heigth(180),
+              child: Obx(
+                () => InkWell(
+                  onTap: () {
+                    controller.changeIndex(
+                      index,
+                      controller.leftCategoryList[index].sId,
+                    );
+                  },
+                  child: Stack(
+                    children: [
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Container(
+                          width: ScreenAdapter.width(8),
+                          height: ScreenAdapter.heigth(46),
+                          color: controller.selectIndex == index
+                              ? Colors.red
+                              : Colors.white,
+                        ),
+                      ),
+                      Center(
+                        child: Text(
+                          '${controller.leftCategoryList[index].title}',
+                          style: TextStyle(
+                            fontSize: ScreenAdapter.fontSize(35),
+                            fontWeight: controller.selectIndex == index
+                                ? FontWeight.bold
+                                : FontWeight.normal,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          }),
+        ),
+      ),
+    );
+  }
+
+  Widget _rightCategory() {
+    return Expanded(
+      child: Container(
+        height: double.infinity,
+        color: Colors.white,
+        child: Obx(
+          () => GridView.builder(
+            itemCount: controller.rightCategoryList.length,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              crossAxisSpacing: ScreenAdapter.width(40),
+              mainAxisSpacing: ScreenAdapter.width(20),
+              childAspectRatio: 240 / 340,
+            ),
+            itemBuilder: (context, index) {
+              return Column(
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    width: double.infinity,
+                    child: Image.network(
+                      HttpsClient.replaeUrl(
+                        controller.rightCategoryList[index].pic,
+                      ),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsetsGeometry.all(ScreenAdapter.width(10)),
+                    child: Text(
+                      '${controller.rightCategoryList[index].title}',
+                      style: TextStyle(fontSize: ScreenAdapter.fontSize(34)),
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,42 +152,7 @@ class CategoryView extends GetView<CategoryController> {
           ),
         ),
       ),
-      body: Row(
-        children: [
-          Container(
-            color: Colors.white,
-            width: ScreenAdapter.width(280),
-            height: double.infinity,
-            child: ListView.builder(
-              itemCount: 20,
-              itemBuilder: ((context, index) {
-                return Container(
-                  width: double.infinity,
-                  height: ScreenAdapter.heigth(140),
-                  child: Stack(
-                    children: [
-                     Align(
-                      alignment: Alignment.centerLeft,
-                      child:  Container(
-                        width: ScreenAdapter.width(8),
-                        height: ScreenAdapter.heigth(46),
-                        color: Colors.red,
-                      ),
-                     ),
-                      Center(
-                        child: Text('第$index')
-                      )
-                    ],
-                  ),
-                );
-              }),
-            ),
-          ),
-          Expanded(
-            child: Container(height: double.infinity, color: Colors.black),
-          ),
-        ],
-      ),
+      body: Row(children: [_leftCategory(), _rightCategory()]),
     );
   }
 }

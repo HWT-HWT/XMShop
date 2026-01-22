@@ -7,6 +7,7 @@ import '../../../services/screebAdapter.dart';
 import '../../../services/ityingFont.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import '../../../services/httpsClient.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({super.key});
@@ -93,10 +94,8 @@ class HomeView extends GetView<HomeController> {
         () => Swiper(
           itemCount: controller.swiperList.length,
           itemBuilder: (context, index) {
-            String picUrl =
-                'https://miapp.itying.com/${controller.swiperList[index].pic}';
             return Image.network(
-              picUrl.replaceAll('\\', '/'),
+              HttpsClient.replaeUrl(controller.swiperList[index].pic),
               fit: BoxFit.cover,
             );
           },
@@ -133,8 +132,6 @@ class HomeView extends GetView<HomeController> {
               ),
               itemCount: 10,
               itemBuilder: (BuildContext context, int i) {
-                String picUrl =
-                    'https://miapp.itying.com/${controller.categoryList[index * 10 + i].pic}';
                 return Column(
                   children: [
                     Container(
@@ -142,7 +139,9 @@ class HomeView extends GetView<HomeController> {
                       width: ScreenAdapter.heigth(140),
                       height: ScreenAdapter.heigth(140),
                       child: Image.network(
-                        picUrl.replaceAll('\\', '/'),
+                        HttpsClient.replaeUrl(
+                          controller.categoryList[index * 10 + i].pic,
+                        ),
                         fit: BoxFit.fitHeight,
                       ),
                     ),
@@ -248,10 +247,10 @@ class HomeView extends GetView<HomeController> {
                     () => Swiper(
                       itemCount: controller.positionList.length,
                       itemBuilder: (context, index) {
-                        String picUrl =
-                            'https://miapp.itying.com/${controller.positionList[index].pic}';
                         return Image.network(
-                          picUrl.replaceAll('\\', '/'),
+                          HttpsClient.replaeUrl(
+                            controller.positionList[index].pic,
+                          ),
                           fit: BoxFit.cover,
                         );
                       },
@@ -429,8 +428,6 @@ class HomeView extends GetView<HomeController> {
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
-                String picUrl =
-                    'https://miapp.itying.com/${controller.bestLit[index].pic}';
                 return Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -444,7 +441,7 @@ class HomeView extends GetView<HomeController> {
                       Container(
                         padding: EdgeInsets.all(ScreenAdapter.heigth(20)),
                         child: Image.network(
-                          picUrl.replaceAll('\\', '/'),
+                          HttpsClient.replaeUrl(controller.bestLit[index].pic),
                           fit: BoxFit.contain,
                         ),
                       ),
