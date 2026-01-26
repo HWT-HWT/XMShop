@@ -21,6 +21,8 @@ void main() {
         return GetMaterialApp(
           title: "Application",
           initialRoute: AppPages.INITIAL,
+          // ios动画
+          defaultTransition: Transition.rightToLeft,
           getPages: AppPages.routes,
           debugShowCheckedModeBanner: false,
         );
