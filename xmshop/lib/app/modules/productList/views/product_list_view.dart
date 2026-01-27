@@ -208,87 +208,46 @@ class ProductListView extends GetView<ProductListController> {
           ),
         ),
         child: Row(
-          children: [
-            Expanded(
-              flex: 1,
-              child: InkWell(
-                child: Padding(
-                  padding: EdgeInsetsGeometry.fromLTRB(
-                    0,
-                    ScreenAdapter.heigth(15),
-                    0,
-                    ScreenAdapter.heigth(15),
+          children: controller.subHeaderList.map((index) {
+            return Obx(
+              () => Expanded(
+                flex: 1,
+                child: InkWell(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: EdgeInsetsGeometry.fromLTRB(
+                          0,
+                          ScreenAdapter.heigth(15),
+                          0,
+                          ScreenAdapter.heigth(15),
+                        ),
+                        child: Text(
+                          '${index['title']}',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: ScreenAdapter.fontSize(32),
+                            color: controller.selectHeaderId == index['id']
+                                ? Colors.red
+                                : Colors.black45,
+                          ),
+                        ),
+                      ),
+                      Icon(
+                        Icons.arrow_drop_up,
+                        size: ScreenAdapter.fontSize(50),
+                      ),
+                      // Icon(Icons.arrow_drop_down,size: ScreenAdapter.fontSize(50),),
+                    ],
                   ),
-                  child: Text(
-                    '中和',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: ScreenAdapter.fontSize(32),
-                      color: Colors.red,
-                    ),
-                  ),
+                  onTap: () {
+                    controller.setSelectHeaderId(index['id']);
+                  },
                 ),
               ),
-            ),
-            Expanded(
-              flex: 1,
-              child: InkWell(
-                child: Padding(
-                  padding: EdgeInsetsGeometry.fromLTRB(
-                    0,
-                    ScreenAdapter.heigth(15),
-                    0,
-                    ScreenAdapter.heigth(15),
-                  ),
-                  child: Text(
-                    '中和',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: ScreenAdapter.fontSize(32)),
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 1,
-              child: InkWell(
-                child: Padding(
-                  padding: EdgeInsetsGeometry.fromLTRB(
-                    0,
-                    ScreenAdapter.heigth(15),
-                    0,
-                    ScreenAdapter.heigth(15),
-                  ),
-                  child: Text(
-                    '中和',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: ScreenAdapter.fontSize(32)),
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 1,
-              child: InkWell(
-                child: Padding(
-                  padding: EdgeInsetsGeometry.fromLTRB(
-                    0,
-                    ScreenAdapter.heigth(15),
-                    0,
-                    ScreenAdapter.heigth(15),
-                  ),
-                  child: Text(
-                    '123',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: ScreenAdapter.fontSize(32)),
-                  ),
-                ),
-                onTap: () {
-                  print(123);
-                  controller.ScaffoldglobalKey.currentState!.openEndDrawer();
-                },
-              ),
-            ),
-          ],
+            );
+          }).toList(),
         ),
       ),
     );
@@ -308,10 +267,11 @@ class ProductListView extends GetView<ProductListController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: controller.ScaffoldglobalKey,
+      key: controller.scaffoldglobalKey,
       endDrawer: Drawer(child: DrawerHeader(child: Text('右侧筛选'))),
       backgroundColor: Color.fromRGBO(237, 252, 243, 1),
       appBar: AppBar(
+        actions: [Text('')],
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
