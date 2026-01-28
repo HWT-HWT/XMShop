@@ -212,11 +212,11 @@ class ProductListView extends GetView<ProductListController> {
             return Obx(
               () => Expanded(
                 flex: 1,
-                child: InkWell(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InkWell(
+                      child: Padding(
                         padding: EdgeInsetsGeometry.fromLTRB(
                           0,
                           ScreenAdapter.heigth(15),
@@ -227,23 +227,19 @@ class ProductListView extends GetView<ProductListController> {
                           '${index['title']}',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: ScreenAdapter.fontSize(32),
+                            fontSize: ScreenAdapter.fontSize(38),
                             color: controller.selectHeaderId == index['id']
                                 ? Colors.red
                                 : Colors.black45,
                           ),
                         ),
                       ),
-                      Icon(
-                        Icons.arrow_drop_up,
-                        size: ScreenAdapter.fontSize(50),
-                      ),
-                      // Icon(Icons.arrow_drop_down,size: ScreenAdapter.fontSize(50),),
-                    ],
-                  ),
-                  onTap: () {
-                    controller.setSelectHeaderId(index['id']);
-                  },
+                      onTap: () {
+                        controller.setSelectHeaderId(index['id']);
+                      },
+                    ),
+                    _showIcon(index['id']),
+                  ],
                 ),
               ),
             );
@@ -251,6 +247,18 @@ class ProductListView extends GetView<ProductListController> {
         ),
       ),
     );
+  }
+
+  // 自定义箭头组件
+  Widget _showIcon(int id) {
+    if (id == 2 || id == 3) {
+      if (controller.subHeaderList[id - 1]['sort'] == -1) {
+        return Icon(Icons.arrow_drop_down, size: ScreenAdapter.fontSize(50));
+      }
+      return Icon(Icons.arrow_drop_up, size: ScreenAdapter.fontSize(50));
+    } else {
+      return Text('');
+    }
   }
 
   // 自定义组件

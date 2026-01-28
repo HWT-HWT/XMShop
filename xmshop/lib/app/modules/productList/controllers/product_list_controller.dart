@@ -28,6 +28,8 @@ class ProductListController extends GetxController {
   // 自定义封装请求
   HttpsClient httpsClient = HttpsClient();
 
+  RxInt subHeaderListIdSort = 0.obs;
+
   // 二级分类地址
   List subHeaderList = [
     {"id": 1, 'title': '综合', 'fileds': 'all', "sort": 1},
@@ -80,6 +82,8 @@ class ProductListController extends GetxController {
 
     // 切换排序
     subHeaderList[id - 1]['sort'] = subHeaderList[id - 1]['sort'] * -1;
+
+    subHeaderListIdSort.value = subHeaderList[id - 1]['sort'];
 
     update();
   }
