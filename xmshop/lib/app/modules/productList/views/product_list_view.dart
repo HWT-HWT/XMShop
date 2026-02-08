@@ -92,8 +92,8 @@ class ProductListView extends GetView<ProductListController> {
                                                 style: TextStyle(
                                                   fontSize:
                                                       ScreenAdapter.fontSize(
-                                                        34,
-                                                      ),
+                                                    34,
+                                                  ),
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
@@ -102,8 +102,8 @@ class ProductListView extends GetView<ProductListController> {
                                                 style: TextStyle(
                                                   fontSize:
                                                       ScreenAdapter.fontSize(
-                                                        34,
-                                                      ),
+                                                    34,
+                                                  ),
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
@@ -118,8 +118,8 @@ class ProductListView extends GetView<ProductListController> {
                                                 style: TextStyle(
                                                   fontSize:
                                                       ScreenAdapter.fontSize(
-                                                        34,
-                                                      ),
+                                                    34,
+                                                  ),
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
@@ -128,8 +128,8 @@ class ProductListView extends GetView<ProductListController> {
                                                 style: TextStyle(
                                                   fontSize:
                                                       ScreenAdapter.fontSize(
-                                                        34,
-                                                      ),
+                                                    34,
+                                                  ),
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
@@ -144,8 +144,8 @@ class ProductListView extends GetView<ProductListController> {
                                                 style: TextStyle(
                                                   fontSize:
                                                       ScreenAdapter.fontSize(
-                                                        34,
-                                                      ),
+                                                    34,
+                                                  ),
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
@@ -154,8 +154,8 @@ class ProductListView extends GetView<ProductListController> {
                                                 style: TextStyle(
                                                   fontSize:
                                                       ScreenAdapter.fontSize(
-                                                        34,
-                                                      ),
+                                                    34,
+                                                  ),
                                                   fontWeight: FontWeight.bold,
                                                 ),
                                               ),
@@ -192,66 +192,68 @@ class ProductListView extends GetView<ProductListController> {
 
   Widget subHeaderWidget() {
     return Positioned(
-      left: 0,
-      top: 0,
-      right: 0,
-      child: Container(
-        width: ScreenAdapter.width(1080),
-        height: ScreenAdapter.heigth(120),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border(
-            bottom: BorderSide(
-              width: ScreenAdapter.heigth(2),
-              color: Color.fromRGBO(233, 233, 233, 0.9),
-            ),
-          ),
-        ),
-        child: Row(
-          children: controller.subHeaderList.map((index) {
-            return Obx(
-              () => Expanded(
-                flex: 1,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    InkWell(
-                      child: Padding(
-                        padding: EdgeInsetsGeometry.fromLTRB(
-                          0,
-                          ScreenAdapter.heigth(15),
-                          0,
-                          ScreenAdapter.heigth(15),
-                        ),
-                        child: Text(
-                          '${index['title']}',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: ScreenAdapter.fontSize(38),
-                            color: controller.selectHeaderId == index['id']
-                                ? Colors.red
-                                : Colors.black45,
-                          ),
-                        ),
-                      ),
-                      onTap: () {
-                        controller.setSelectHeaderId(index['id']);
-                      },
-                    ),
-                    _showIcon(index['id']),
-                  ],
+        left: 0,
+        top: 0,
+        right: 0,
+        child: Obx(
+          () => Container(
+            width: ScreenAdapter.width(1080),
+            height: ScreenAdapter.heigth(120),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border(
+                bottom: BorderSide(
+                  width: ScreenAdapter.heigth(2),
+                  color: Color.fromRGBO(233, 233, 233, 0.9),
                 ),
               ),
-            );
-          }).toList(),
-        ),
-      ),
-    );
+            ),
+            child: Row(
+              children: controller.subHeaderList.map((index) {
+                return Expanded(
+                  flex: 1,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      InkWell(
+                        child: Padding(
+                          padding: EdgeInsetsGeometry.fromLTRB(
+                            0,
+                            ScreenAdapter.heigth(15),
+                            0,
+                            ScreenAdapter.heigth(15),
+                          ),
+                          child: Text(
+                            '${index['title']}',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: ScreenAdapter.fontSize(38),
+                              color: controller.selectHeaderId == index['id']
+                                  ? Colors.red
+                                  : Colors.black45,
+                            ),
+                          ),
+                        ),
+                        onTap: () {
+                          controller.setSelectHeaderId(index['id']);
+                        },
+                      ),
+                      _showIcon(index['id']),
+                    ],
+                  ),
+                );
+              }).toList(),
+            ),
+          ),
+        ));
   }
 
   // 自定义箭头组件
   Widget _showIcon(int id) {
-    if (id == 2 || id == 3) {
+    if (id == 2 ||
+        id == 3 ||
+        controller.subHeaderListIdSort.value == 1 ||
+        controller.subHeaderListIdSort.value == -1) {
       if (controller.subHeaderList[id - 1]['sort'] == -1) {
         return Icon(Icons.arrow_drop_down, size: ScreenAdapter.fontSize(50));
       }
@@ -290,34 +292,41 @@ class ProductListView extends GetView<ProductListController> {
             color: Color.fromRGBO(237, 252, 243, 1),
             borderRadius: BorderRadius.circular(ScreenAdapter.width(50)),
           ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Padding(
-                padding: EdgeInsets.fromLTRB(
-                  ScreenAdapter.width(34),
-                  0,
-                  ScreenAdapter.width(10),
-                  0,
+          child: InkWell(
+            onTap: () {
+              Get.offAndToNamed('/search');
+            },
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: EdgeInsets.fromLTRB(
+                    ScreenAdapter.width(34),
+                    0,
+                    ScreenAdapter.width(10),
+                    0,
+                  ),
+                  child: Icon(
+                    Icons.search,
+                    color: Colors.grey,
+                    size: ScreenAdapter.fontSize(60),
+                  ),
                 ),
-                child: Icon(
-                  Icons.search,
-                  color: Colors.grey,
-                  size: ScreenAdapter.fontSize(60),
+                Text(
+                  controller.keywords != null ? '${controller.keywords}' : '',
+                  style: TextStyle(
+                    color: Colors.black54,
+                    fontSize: ScreenAdapter.fontSize(38),
+                  ),
                 ),
-              ),
-              Text(
-                '手机',
-                style: TextStyle(
-                  color: Colors.black54,
-                  fontSize: ScreenAdapter.fontSize(38),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
-      body: Stack(children: [_productListWidget(), subHeaderWidget()]),
+      body: Obx(() => controller.plist.isNotEmpty
+          ? Stack(children: [_productListWidget(), subHeaderWidget()])
+          :  _productIndicator()),
     );
   }
 }

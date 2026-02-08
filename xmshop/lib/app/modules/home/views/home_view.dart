@@ -20,7 +20,8 @@ class HomeView extends GetView<HomeController> {
       right: 0,
       child: Obx(
         () => AppBar(
-          title: AnimatedContainer(
+          title: InkWell(
+            child: AnimatedContainer(
             width: controller.flage.value
                 ? ScreenAdapter.width(800)
                 : ScreenAdapter.width(620),
@@ -56,6 +57,10 @@ class HomeView extends GetView<HomeController> {
                 ),
               ],
             ),
+          ),
+          onTap: () {
+            Get.toNamed('/search');
+           },
           ),
           centerTitle: true,
           backgroundColor: controller.flage.value

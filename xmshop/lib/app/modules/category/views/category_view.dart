@@ -126,7 +126,8 @@ class CategoryView extends GetView<CategoryController> {
             icon: Icon(Icons.message, color: Colors.black),
           ),
         ],
-        title: Container(
+        title: InkWell(
+          child: Container(
           width: ScreenAdapter.width(840),
           height: ScreenAdapter.heigth(95),
           decoration: BoxDecoration(
@@ -159,6 +160,10 @@ class CategoryView extends GetView<CategoryController> {
             ],
           ),
         ),
+        onTap: () {
+          Get.toNamed('/search');
+        },
+        )
       ),
       body: Row(children: [_leftCategory(), _rightCategory()]),
     );

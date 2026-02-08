@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import '../../../models/plist_model.dart';
 import '../../../services/httpsClient.dart';
@@ -28,6 +27,7 @@ class ProductListController extends GetxController {
   // 自定义封装请求
   HttpsClient httpsClient = HttpsClient();
 
+  // 主要解决无法更新箭头
   RxInt subHeaderListIdSort = 0.obs;
 
   // 二级分类地址
@@ -40,6 +40,13 @@ class ProductListController extends GetxController {
 
   // 二级筛选判断
   RxInt selectHeaderId = 1.obs;
+
+  // 不同页面传值
+  String? keywords = Get.arguments['keywords'];
+  String? cid = Get.arguments['cid'];
+
+  // 请求地址
+  String? apiUrl = '';
 
   @override
   void onInit() {
@@ -58,7 +65,7 @@ class ProductListController extends GetxController {
     // 改变二级导航选中
     selectHeaderId.value = id;
 
-    // 改变排序
+    // 改变排序  添加url请求参数
     sort.value =
         '${subHeaderList[id - 1]['fileds']}_${subHeaderList[id - 1]['sort']}';
 
@@ -105,12 +112,19 @@ class ProductListController extends GetxController {
   // 获取商品列表数据
   void getPlistData() async {
     if (hasData.value) {
+      if (cid != null) {
+        apiUrl =
+          'api/plist?cid=$cid&page=${page.value}&pageSize=${pageSize.value}&sort=$sort';
+      } else {
+        apiUrl =
+          'api/plist?search=$keywords&page=${page.value}&pageSize=${pageSize.value}&sort=$sort';
+      }
       print(
-        'api/plist?cid=${Get.arguments['cid']}&page=$page&pageSize=$pageSize&sort=$sort',
+        apiUrl,
       );
       flag = false;
       var response = await httpsClient.get(
-        'api/plist?cid=${Get.arguments['cid']}&page=$page&pageSize=$pageSize&sort=$sort',
+        apiUrl,
       );
 
       if (response != null) {
