@@ -22,50 +22,48 @@ class HomeView extends GetView<HomeController> {
         () => AppBar(
           title: InkWell(
             child: AnimatedContainer(
-            width: controller.flage.value
-                ? ScreenAdapter.width(800)
-                : ScreenAdapter.width(620),
-            height: ScreenAdapter.heigth(95),
-            duration: Duration(milliseconds: 600),
-            decoration: BoxDecoration(
-              color: Color.fromARGB(237, 252, 243, 237),
-              borderRadius: BorderRadius.circular(ScreenAdapter.width(50)),
+              width: controller.flage.value
+                  ? ScreenAdapter.width(800)
+                  : ScreenAdapter.width(620),
+              height: ScreenAdapter.heigth(95),
+              duration: Duration(milliseconds: 600),
+              decoration: BoxDecoration(
+                color: Color.fromARGB(237, 252, 243, 237),
+                borderRadius: BorderRadius.circular(ScreenAdapter.width(50)),
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(
+                      ScreenAdapter.width(34),
+                      0,
+                      ScreenAdapter.width(10),
+                      0,
+                    ),
+                    child: Icon(
+                      Icons.search,
+                      color: Colors.grey,
+                      size: ScreenAdapter.fontSize(60),
+                    ),
+                  ),
+                  Text(
+                    '手机',
+                    style: TextStyle(
+                      color: Colors.black54,
+                      fontSize: ScreenAdapter.fontSize(38),
+                    ),
+                  ),
+                ],
+              ),
             ),
-
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: EdgeInsets.fromLTRB(
-                    ScreenAdapter.width(34),
-                    0,
-                    ScreenAdapter.width(10),
-                    0,
-                  ),
-                  child: Icon(
-                    Icons.search,
-                    color: Colors.grey,
-                    size: ScreenAdapter.fontSize(60),
-                  ),
-                ),
-                Text(
-                  '手机',
-                  style: TextStyle(
-                    color: Colors.black54,
-                    fontSize: ScreenAdapter.fontSize(38),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          onTap: () {
-            Get.toNamed('/search');
-           },
+            onTap: () {
+              Get.toNamed('/search');
+            },
           ),
           centerTitle: true,
-          backgroundColor: controller.flage.value
-              ? Colors.white
-              : Colors.transparent,
+          backgroundColor:
+              controller.flage.value ? Colors.white : Colors.transparent,
           foregroundColor: Colors.white,
           elevation: 0,
           leading: controller.flage.value ? null : Icon(ItyingIcon.xiaomi),
@@ -262,31 +260,29 @@ class HomeView extends GetView<HomeController> {
                       pagination: SwiperPagination(
                         margin: const EdgeInsets.all(0.0),
                         builder: SwiperCustomPagination(
-                          builder:
-                              (
-                                BuildContext context,
-                                SwiperPluginConfig config,
-                              ) {
-                                return ConstrainedBox(
-                                  constraints: BoxConstraints.expand(
-                                    height: ScreenAdapter.heigth(40),
+                          builder: (
+                            BuildContext context,
+                            SwiperPluginConfig config,
+                          ) {
+                            return ConstrainedBox(
+                              constraints: BoxConstraints.expand(
+                                height: ScreenAdapter.heigth(40),
+                              ),
+                              child: Row(
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Align(
+                                      alignment: Alignment.center,
+                                      child: const RectSwiperPaginationBuilder(
+                                        color: Colors.black12,
+                                        activeColor: Colors.black54,
+                                      ).build(context, config),
+                                    ),
                                   ),
-                                  child: Row(
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: Align(
-                                          alignment: Alignment.center,
-                                          child:
-                                              const RectSwiperPaginationBuilder(
-                                                color: Colors.black12,
-                                                activeColor: Colors.black54,
-                                              ).build(context, config),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },
+                                ],
+                              ),
+                            );
+                          },
                         ),
                       ),
                       autoplay: true,
@@ -433,56 +429,64 @@ class HomeView extends GetView<HomeController> {
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
-                return Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(
-                      ScreenAdapter.width(20),
+                return InkWell(
+                  onTap: () {
+                    print(controller.bestLit[index].sId);
+                    Get.toNamed('/product-content',
+                        arguments: {'id': controller.bestLit[index].sId});
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(
+                        ScreenAdapter.width(20),
+                      ),
                     ),
-                  ),
-                  padding: EdgeInsets.all(ScreenAdapter.width(20)),
-                  child: Column(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(ScreenAdapter.heigth(20)),
-                        child: Image.network(
-                          HttpsClient.replaeUrl(controller.bestLit[index].pic),
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                      Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.all(ScreenAdapter.heigth(10)),
-                        child: Text(
-                          '${controller.bestLit[index].title}',
-                          style: TextStyle(
-                            fontSize: ScreenAdapter.fontSize(36),
-                            fontWeight: FontWeight.bold,
+                    padding: EdgeInsets.all(ScreenAdapter.width(20)),
+                    child: Column(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(ScreenAdapter.heigth(20)),
+                          child: Image.network(
+                            HttpsClient.replaeUrl(
+                                controller.bestLit[index].pic),
+                            fit: BoxFit.contain,
                           ),
                         ),
-                      ),
-                      Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.all(ScreenAdapter.heigth(10)),
-                        child: Text(
-                          '${controller.bestLit[index].subTitle}',
-                          style: TextStyle(
-                            fontSize: ScreenAdapter.fontSize(32),
+                        Container(
+                          width: double.infinity,
+                          padding: EdgeInsets.all(ScreenAdapter.heigth(10)),
+                          child: Text(
+                            '${controller.bestLit[index].title}',
+                            style: TextStyle(
+                              fontSize: ScreenAdapter.fontSize(36),
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
-                      ),
-                      Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.all(ScreenAdapter.heigth(10)),
-                        child: Text(
-                          '￥${controller.bestLit[index].price}元',
-                          style: TextStyle(
-                            fontSize: ScreenAdapter.fontSize(32),
-                            fontWeight: FontWeight.bold,
+                        Container(
+                          width: double.infinity,
+                          padding: EdgeInsets.all(ScreenAdapter.heigth(10)),
+                          child: Text(
+                            '${controller.bestLit[index].subTitle}',
+                            style: TextStyle(
+                              fontSize: ScreenAdapter.fontSize(32),
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                        Container(
+                          width: double.infinity,
+                          padding: EdgeInsets.all(ScreenAdapter.heigth(10)),
+                          child: Text(
+                            '￥${controller.bestLit[index].price}元',
+                            style: TextStyle(
+                              fontSize: ScreenAdapter.fontSize(32),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 );
               },

@@ -20,4 +20,8 @@ class ScreenAdapter {
   static double getScreenHeigth() {
     return 1.sh;
   }
+
+  static double getStaticScreenHeigth() {
+    return ScreenUtil().statusBarHeight;
+  }
 }
