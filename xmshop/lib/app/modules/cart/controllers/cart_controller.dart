@@ -4,7 +4,11 @@ import '../../../services/cardService.dart';
 class CartController extends GetxController {
   //TODO: Implement CartController
 
+  // 获取购物车数据
   RxList cardList = [].obs;
+
+  //是否全选
+  RxBool cardAllItem = true.obs;
 
   @override
   void onInit() {
@@ -25,6 +29,7 @@ class CartController extends GetxController {
     update();
   }
 
+  // 购物车商品+1
   void incCartNum(Map cardItem) {
     var tempList = [];
     for (var i = 0; i < cardList.length; i++) {
@@ -39,6 +44,7 @@ class CartController extends GetxController {
     update();
   }
 
+  // 购物车商品+1
   void decCartNum(Map cardItem) {
     var tempList = [];
     for (var i = 0; i < cardList.length; i++) {
@@ -54,6 +60,54 @@ class CartController extends GetxController {
     }
     cardList.value = tempList;
     CardService.setCartList(tempList);
+    update();
+  }
+
+  //购物车中每个商品选中按钮
+  void changeCardItem(Map cardItem) {
+    var tempList = [];
+    for (var i = 0; i < cardList.length; i++) {
+      if (cardList[i]['_id'] == cardItem['_id'] &&
+          cardList[i]['selectedAttr'] == cardItem['selectedAttr']) {
+        cardList[i]['checked'] = !cardList[i]['checked'];
+      }
+      tempList.add(cardList[i]);
+    }
+    cardList.value = tempList;
+    CardService.setCartList(tempList);
+    cardAllItem.value = isCheckedAll();
+    update();
+  }
+
+  // 购物车商品全选按钮
+  void changeCardAllItem() {
+    var tempList = [];
+    for (var i = 0; i < cardList.length; i++) {
+      cardList[i]['checked'] = !cardAllItem.value;
+      tempList.add(cardList[i]);
+    }
+    cardList.value = tempList;
+    CardService.setCartList(tempList);
+
+    update();
+  }
+
+  //判断是否全选
+  bool isCheckedAll() {
+    if (cardList.isNotEmpty) {
+      for (var i = 0; i < cardList.length; i++) {
+        if (cardList[i]["checked"] == false) {
+          return false;
+        }
+      }
+      return true;
+    }
+    return false;
+  }
+
+  // 全选按钮
+  void changeAllButtom() {
+    cardAllItem.value = !cardAllItem.value;
     update();
   }
 }

@@ -7,8 +7,12 @@ import '../../cart/views/cart_view.dart';
 import '../../user/views/user_view.dart';
 
 class TabsController extends GetxController {
+  // 切换栏下标
   RxInt currentIndex = 0.obs;
+
+  // 初始化 PageController
   PageController pageController = PageController(initialPage: 0);
+
   final List<Widget> pages = [
     HomeView(),
     CategoryView(),

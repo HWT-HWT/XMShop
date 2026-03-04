@@ -3,8 +3,9 @@ import 'package:get/get.dart';
 import './card_num_view.dart';
 import 'package:xmshop/app/services/screebAdapter.dart';
 import '../../../services/httpsClient.dart';
+import '../controllers/cart_controller.dart';
 
-class CardListView extends GetView {
+class CardListView extends GetView<CartController> {
   final Map cardItem;
   const CardListView(this.cardItem, {super.key});
 
@@ -28,8 +29,11 @@ class CardListView extends GetView {
               children: [
                 Checkbox(
                   activeColor: Colors.red,
-                  value: false,
-                  onChanged: (value) {},
+                  value: cardItem['checked'],
+                  onChanged: (value) {
+                    // controller.cardAllItemTrue();
+                    controller.changeCardItem(cardItem);
+                  },
                 ),
                 SizedBox(
                   width: ScreenAdapter.width(250),

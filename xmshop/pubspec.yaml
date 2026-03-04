@@ -30,6 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  provider: 
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -75,7 +76,9 @@ flutter:
     - assets/images/hot_search.png
     - assets/images/2.0x/hot_search.png
     - assets/images/3.0x/hot_search.png
-
+    - assets/images/user.png
+    - assets/images/user_ad1.png
+    - assets/images/user_ad2.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
 
@@ -91,6 +94,9 @@ flutter:
     - family: ityingIcon
       fonts:
         - asset: assets/fonts/iconfont.ttf
+    - family: userIcon
+      fonts:
+        - asset: assets/fonts/userIconfont.ttf
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:

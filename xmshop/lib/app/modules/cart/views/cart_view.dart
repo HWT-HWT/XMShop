@@ -21,8 +21,13 @@ class CartView extends GetView<CartController> {
           children: [
             Row(
               children: [
-                Radio(
-                  value: false,
+                Checkbox(
+                  activeColor: Colors.red,
+                  value: controller.cardAllItem.value,
+                  onChanged: (value) {
+                    controller.changeCardAllItem();
+                    controller.changeAllButtom();
+                  },
                 ),
                 Text('全选'),
               ],
