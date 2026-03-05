@@ -1,9 +1,15 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CodeLoginStepOneController extends GetxController {
-  //TODO: Implement CodeLoginStepOneController
+  RxBool isChecked = false.obs;
+  // 手机号输入框控制器
+  final TextEditingController phoneController = TextEditingController();
+  // 密码输入框控制器
+  final TextEditingController passwordController = TextEditingController();
 
-  final count = 0.obs;
+  get checked => null;
+
   @override
   void onInit() {
     super.onInit();
@@ -19,5 +25,14 @@ class CodeLoginStepOneController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  void selectCheckbox() {
+    isChecked.value = !isChecked.value;
+    print(isChecked.value);
+    update();
+  }
+
+  void subLogin() {
+    print(phoneController.text);
+    print(passwordController.text);
+  }
 }
